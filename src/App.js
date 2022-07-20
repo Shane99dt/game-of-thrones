@@ -9,12 +9,9 @@ class App extends React.Component {
 
     this.state = {
       characters: [],
-      favorites:[],
       continents:[],
-      favBtnDisable: false,
-      showCharacters: true,
-      showContinents: false,
-      showFavorites: false,
+      favorites:[],
+      currentTab: 'characters',
     }
   }
 
@@ -46,27 +43,9 @@ class App extends React.Component {
     }
   }
 
-  handleClickCharacters = () => {
+  handleCurrentTab = (tab) => {
     this.setState({
-      showCharacters: true,
-      showContinents: false,
-      showFavorites : false
-    })
-  }
-
-  handleClickContinents = () => {
-    this.setState({
-      showCharacters: false,
-      showContinents: true,
-      showFavorites : false
-    })
-  }
-
-  handleClickFavorites = () => {
-    this.setState({
-      showCharacters: false,
-      showContinents: false,
-      showFavorites : true
+      currentTab: tab
     })
   }
 
@@ -76,12 +55,16 @@ class App extends React.Component {
       <div className='container d-flex flex-column align-items-center'>
         <h1>Game of thrones</h1>
         <div className='d-flex flex-row gap-4'>
-          <button onClick={this.handleClickCharacters} type="button" className="btn btn-dark">Characters</button>
-          <button onClick={this.handleClickContinents} type="button" className="btn btn-dark">Continents</button>
-          <button onClick={this.handleClickFavorites} type="button" className="btn btn-dark">Favorites</button>
+
+          <button onClick={() => this.handleCurrentTab('characters')} type="button" className="btn btn-dark">Characters</button>
+
+          <button onClick={() => this.handleCurrentTab('continents')} type="button" className="btn btn-dark">Continents</button>
+
+          <button onClick={() => this.handleCurrentTab('favorites')} type="button" className="btn btn-dark">Favorites</button>
+
         </div>
         <div className='d-flex flex-row flex-wrap col-8' id="characters-div">
-          { this.state.showCharacters &&
+          { this.state.currentTab === "characters" &&
             <>
               {this.state.characters.map((character) => (
                 <Character
@@ -95,22 +78,22 @@ class App extends React.Component {
               ))}
             </>
           }
-          {this.state.showContinents &&
+          {this.state.currentTab === "continents" &&
             <>
-              {this.state.continents.map((char) => (
+              {this.state.continents.map((character) => (
                 <Continents
-                  continentName={char.name}
+                  continentName={character.name}
                 />
               ))}
             </>
           }
-          { this.state.showFavorites &&
+          { this.state.currentTab === "favorites" &&
             <>
-              {this.state.favorites.map((char, i) => (
+              {this.state.favorites.map((character) => (
                 <Character
-                  fullName={char.fullName}
-                  picture = {char.imageUrl}
-                  title={char.title}
+                  fullName={character.fullName}
+                  picture = {character.imageUrl}
+                  title={character.title}
                   // idGiven = {char.id}
                   favButton = {this.state.favBtnDisable}
                 />
