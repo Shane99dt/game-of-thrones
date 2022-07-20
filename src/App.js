@@ -13,7 +13,7 @@ class App extends React.Component {
       continents:[],
       favBtnDisable: false,
       showCharacters: true,
-      showContinents: true,
+      showContinents: false,
       showFavorites: false,
     }
   }
@@ -29,20 +29,21 @@ class App extends React.Component {
       characters: responseCharacters,
       continents: responseContinents
     })
-    console.log(responseContinents)
-
   }
 
-  handleFavoriteClick = (i) => {
-    const clonedFavorites = [...this.state.favorites]
-  //  // const clonedFavorites = [...this.state.favorites, (key: value)]
-      //upper line shows how to push in same line
+  handleFavoriteClick = (character) => {
+    const findDuplicates =  this.state.favorites.find(
+      favorite => favorite.id === character.id
+    )
 
-    clonedFavorites.push(this.state.characters[i])
-    this.setState({
-      favorites: clonedFavorites,
-      // favBtnDisable: clonedFavorites.id(i)
-    })
+    if(!findDuplicates){
+      const clonedFavorites = [...this.state.favorites, character]
+      //// const clonedFavorites = [...this.state.favorites, character]
+        //upper line shows how to push in same line
+      this.setState({
+        favorites: clonedFavorites,
+      })
+    }
   }
 
   handleClickCharacters = () => {
@@ -82,12 +83,12 @@ class App extends React.Component {
         <div className='d-flex flex-row flex-wrap col-8' id="characters-div">
           { this.state.showCharacters &&
             <>
-              {this.state.characters.map((char, i) => (
+              {this.state.characters.map((character) => (
                 <Character
-                  fullName={char.fullName}
-                  picture = {char.imageUrl}
-                  title={char.title}
-                  favoriteClick={() => this.handleFavoriteClick(i)}
+                  fullName={character.fullName}
+                  picture = {character.imageUrl}
+                  title={character.title}
+                  favoriteClick={() => this.handleFavoriteClick(character)}
                   // idGiven = {char.id}
                   favButton = {this.state.favBtnDisable}
                 />
@@ -110,7 +111,6 @@ class App extends React.Component {
                   fullName={char.fullName}
                   picture = {char.imageUrl}
                   title={char.title}
-                  favoriteClick={() => this.handleFavoriteClick(i)}
                   // idGiven = {char.id}
                   favButton = {this.state.favBtnDisable}
                 />
