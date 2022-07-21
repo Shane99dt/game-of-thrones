@@ -1,7 +1,8 @@
 import React from 'react'
 import Character from './components/Character';
 import Continents from './components/Continents';
-let favIndex
+import "./App.css"
+
 
 class App extends React.Component {
   constructor(){
@@ -52,9 +53,9 @@ class App extends React.Component {
 
 	render() {
 		return(
-      <div className='container d-flex flex-column align-items-center'>
-        <h1>Game of thrones</h1>
-        <div className='d-flex flex-row gap-4'>
+      <div className='container d-flex flex-column align-items-center mt-4'>
+        <h1 className='page-title'>Game of Thrones</h1>
+        <div className='d-flex flex-row gap-md-4 gap-1 mt-4'>
 
           <button onClick={() => this.handleCurrentTab('characters')} type="button" className="btn btn-dark">Characters</button>
 
@@ -63,7 +64,7 @@ class App extends React.Component {
           <button onClick={() => this.handleCurrentTab('favorites')} type="button" className="btn btn-dark">Favorites</button>
 
         </div>
-        <div className='d-flex flex-row flex-wrap col-8' id="characters-div">
+        <div className='d-flex flex-row flex-wrap justify-content-center mt-4 gap-md-2' id="characters-div">
           { this.state.currentTab === "characters" &&
             <>
               {this.state.characters.map((character) => (
@@ -72,8 +73,6 @@ class App extends React.Component {
                   picture = {character.imageUrl}
                   title={character.title}
                   favoriteClick={() => this.handleFavoriteClick(character)}
-                  // idGiven = {char.id}
-                  favButton = {this.state.favBtnDisable}
                 />
               ))}
             </>
@@ -94,8 +93,6 @@ class App extends React.Component {
                   fullName={character.fullName}
                   picture = {character.imageUrl}
                   title={character.title}
-                  // idGiven = {char.id}
-                  favButton = {this.state.favBtnDisable}
                 />
               ))}
             </>

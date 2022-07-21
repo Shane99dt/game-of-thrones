@@ -5,9 +5,48 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-size: 1900px;
+  background-repeat: no-repeat;
+  background-image: url(../images/gameOfThrones.jpg);
+  background-attachment: fixed;
+  background-position: center
+
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+
+
+
+
+
+
+
+@media(max-width: 470px){
+  body{
+    background-size: 700px;
+  }
+}
+
+@media(max-width: 770px){
+  body{
+    background-size: 1500px;
+  }
+}
+
+@media(max-width: 1440px){
+  body{
+    background-size: 2000px;
+  }
+}
+
+@media(min-width: 1440px){
+  body{
+    background-size: 3000px;
+  }
 }
